@@ -1,0 +1,54 @@
+{% extends "baseusr.html" %}
+{% load staticfiles %}
+{% block content %}
+<section id="content">
+  <div class="container">
+    <div class="section">
+      <div class="row" id="item-posts">
+        <div class="item-sizer"></div>
+        {% for reg in registros %}
+
+        <div class="item product">
+          <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+              <a class="btn-floating btn-large btn-price waves-effect waves-light teal accent-4">$ {{ reg.prd_precio_compra }}</a>
+              <a class="activator">
+                <img src="{{ reg.prd_img.url }}" alt="item-img">
+              </a>
+            </div>
+            <ul class="card-action-buttons">
+              <li>
+                <a class="btn-floating waves-effect waves-light blue accent-2 tooltipped" data-position="top" data-delay="25" data-tooltip="Informacion del producto">
+                  <i class="material-icons activator">info_outline</i>
+                </a>
+              </li>
+            </ul>
+            <div class="card-content">
+              <div class="row">
+                <div class="col s12">
+                  <p class="card-title grey-text text-darken-4"><a class="grey-text text-darken-4">{{ reg.prd_nombre }}</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">
+                <i class="material-icons right">close</i> {{ reg.prd_nombre }}</span>
+                <span class="new badge blue left" data-badge-caption="">Precio: $ {{ reg.prd_precio_compra }}</span>
+                <span class="new badge red left" data-badge-caption="">Categoria: {{ reg.catg_id }}</span>
+                <br>
+              <pre>{{ reg.prd_descripcion }}</pre>
+              <span>Si deseas este producto comunicate a:</span><br>
+              <span><a class="valign-wrapper" href="https://www.facebook.com/AliveExclusividades/"><img src="{% static 'img/face.png' %}" style="max-width:5%;">&nbsp;AliveExclusividades</a></span>
+              <span><a class="valign-wrapper"><img src="{% static 'img/insta.png' %}" style="max-width:5%;">&nbsp; alive_exclusividades</a></li></span>
+              <span><a class="valign-wrapper"><img src="{% static 'img/Whatsapp.png' %}" style="max-width:5%;">&nbsp; 0996565355 - 0992890102</a></span>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+<br>
+<form class="" method="post" ENCTYPE="multipart/form-data">{% csrf_token %}
+  <div class="row">
+    <div class="white card-content">
+      <div class="row">
+        <div class="input-field">
+          {{form.prd_nombre}}
+          {{form.prd_nombre.label_tag}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field">
+          {{form.prd_precio_compra}}
+          {{form.prd_precio_compra.label_tag}}
+          <blockquote>
+              {{ form.prd_precio_compra.errors }}
+          </blockquote>
+        </div>
+      </div>
+      <div class="row">
+        {{form.catg_id.label_tag}}
+        {{form.catg_id}}
+      </div>
+      <div class="row">
+        <div class="input-field file-field">
+          <div class="btn">
+            <span>Imagen</span>
+            {{form.prd_img}}
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+            <blockquote>
+                {{ form.prd_img.errors }}
+            </blockquote>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field ">
+          {{form.prd_descripcion}}
+          {{form.prd_descripcion.label_tag}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field ">
+          {{form.prd_estado}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field center-align">
+          <button class="waves-effect waves-light btn green">Guardar</button>
+          <a class="waves-effect waves-light btn red" href="{% url 'productos' %}">Cancelar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</form>
+{% endblock content %}

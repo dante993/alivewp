@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head lang="es">
+  {% load staticfiles %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>Alive</title>
+
+  <link type="image/x-icon" href="{% static 'img/alivelogo.jpg' %}" rel="shortcut icon"/>
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"/> -->
+  {% block js %}
+  <script src="{% static 'js2/jquery-3.2.1.min.js' %}" ></script>
+  <script src="{% static 'js2/cards-extended.js' %}" ></script>
+  <script src="{% static 'js2/chart.min.js' %}" ></script>
+  <script src="{% static 'js2/chartist.min.js' %}" ></script>
+  <script src="{% static 'js2/materialize.min.js' %}" ></script>
+  <script src="{% static 'js2/perfect-scrollbar.min.js' %}" ></script>
+  <script src="{% static 'js2/plugins.js' %}" ></script>
+  <script src="{% static 'js2/prism.js' %}" ></script>
+  <script src="{% static 'js2/imagesloaded.pkgd.min.js' %}" ></script>
+  <script src="{% static 'js2/page-item.js' %}" ></script>
+  <script src="{% static 'js2/masonry.pkgd.min.js' %}" ></script>
+  {% endblock js %}
+
+  {% block css %}
+  <link rel="stylesheet" href="{% static 'css2/materialize.css' %}">
+  <link rel="stylesheet" href="{% static 'css2/flag-icon.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css2/perfect-scrollbar.css' %}">
+  <link rel="stylesheet" href="{% static 'css2/prism.css' %}">
+  <link rel="stylesheet" href="{% static 'css2/style.css' %}">
+  <link rel="stylesheet" href="{% static 'iconfont/material-icons.css' %}">
+  {% endblock css %}
+
+
+</head>
+<body style="background: url({% static 'img/12.jpg' %}) no-repeat fixed center;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;">
+
+<main>
+  <nav class="hoverable purple accent-3" style="background: url({% static 'img/baner.png' %});
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;">
+    <div class="row valign-wrapper nav-wrapper">
+      <div class="col left" style="margin-top:2%;">
+        <a href="#"><img src="{% static 'img/logo.png' %}" style="max-width:50%;"> </a>
+      </div>
+      <div class="col center">
+        <h5>Categoría: {{ categ_act }}</h5>
+
+      </div>
+      <div class="col center">
+        <a id="categ" class='dropdown-button btn purple accent-1' href='#' data-activates='dropdown1'>categorías</a>
+        <ul id='dropdown1' class='dropdown-content'>
+          <li><a href="{% url 'catalogo' %}">Todos</a></li>
+          {% for regc in registrosc %}
+          <li><a href="{% url 'catalogof' regc.catg_id %}">{{regc.catg_nombre}}</a></li>
+          {% endfor %}
+        </ul>
+        <div class="tap-target" data-activates="categ">
+          <div class="tap-target-content">
+            <h5>Filtrar por categorías</h5>
+            <p>Si deseas encontrar algo mas específico puedes probar a elegir una categoría!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  {% block content %}
+
+  {% endblock content %}
+</main>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.tap-target').tapTarget('open');
+// $('.tap-target').tapTarget('close');
+  });
+
+
+</script>
+</body>
+<footer class="page-footer purple accent-2" style="padding-left:0px;">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <a href="#"><img src="{% static 'img/logo.png' %}" style="max-width:35%;"> </a>
+        <p class="grey-text text-lighten-4">
+          CATÁLOGO ON-LINE <br>
+          MAQUILLAJE️ [ESSENCE⚪BEAUTY CREATIONS⚫MORPHE MAC⚫URBAN DECAY] <br>
+          PERFUMES⚫ACCESORIOS <br>
+          ASESORAMOS TUS COMPRAS <br>
+          ENTREGAMOS A DOMICILIO GRATIS (MACHALA - PASAJE - EL GUABO) <br>
+          EN TU CUMPLEAÑOS OBTIENES EL 20% DESCUENTO EN TODOS NUESTROS PRODUCTOS MAS REGALO
+
+        </p>
+      </div>
+      <div class="col l4 offset-l2 s12">
+        <h5 class="white-text">Redes <i class="material-icons">share</i></h5>
+        <ul>
+          <li><a class="grey-text text-lighten-3 valign-wrapper" href="https://www.facebook.com/AliveExclusividades/"><img src="{% static 'img/face.png' %}" style="max-width:5%;">&nbsp;&nbsp;AliveExclusividades</a></li><br>
+          <li><a class="grey-text text-lighten-3 valign-wrapper"><img src="{% static 'img/insta.png' %}" style="max-width:5%;">&nbsp; alive_exclusividades</a></li><br>
+          <li><a class="grey-text text-lighten-3 valign-wrapper"><img src="{% static 'img/Whatsapp.png' %}" style="max-width:5%;">&nbsp; 0996565355 - 0992890102</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+    © 2017 Copyright <a class="grey-text text-lighten-4" href="mailto:e.j.moya.arias@gmail.com">EJMA</a>
+    <a class="grey-text text-lighten-4 right" href="mailto:e.j.moya.arias@gmail.com">Contactar con el desarrollador</a>
+    </div>
+  </div>
+</footer>
+</html>

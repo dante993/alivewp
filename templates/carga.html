@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+<br>
+<form class="col" method="post">{% csrf_token %}
+  <div class="row valign-wrapper">
+    <a href="{% url 'productosadd' %}" class="mn-ttp waves-effect waves-light btn" data-position="top" data-delay="25" data-tooltip="Nuevo producto"><i class="material-icons">note_add</i></a>
+    <a href="{% url 'productosin' %}" class="mn-ttp waves-effect waves-light btn" data-position="top" data-delay="25" data-tooltip="Ver eliminados"><i class="material-icons">no_sim</i></a>
+
+    <div class="col">
+      <div class="input-field">
+        <input id="buscar" name="buscar" type="text" class="validate">
+        <label for="icon_prefix">Nombre del producto...</label>
+      </div>
+    </div>
+    <button type="submit" class="mn-ttp waves-effect waves-light btn col" data-position="top" data-delay="25" data-tooltip="buscar"><i class="material-icons prefix">search</i></button>
+    <ul class="pagination col">
+      {% if registros.has_previous %}
+      <li class="waves-effect teal"><a href="?page={{ registros.previous_page_number }}"><i class="material-icons">chevron_left</i></a></li>
+      {% else %}
+      <li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
+      {% endif %}
+      <li class="active teal"><a>Página {{ registros.number }} de {{ registros.paginator.num_pages }}</a></li>
+      {% if registros.has_next %}
+      <li class="waves-effect teal"><a href="?page={{ registros.next_page_number }}"><i class="material-icons">chevron_right</i></a></li>
+      {% else %}
+      <li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>
+      {% endif %}
+    </ul>
+  </div>
+</form>
+<div class="white">
+  <table class="highlight black-text">
+    <thead>
+      <tr>
+        <th class="center-align">Imagen</th>
+        <th class="center-align">Nombre</th>
+        <th class="center-align">Categoria</th>
+        <th class="center-align">Precio</th>
+        <th class="center-align">Descripcion</th>
+        <th class="center-align">Opciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for reg in registros %}
+      <tr>
+        <td width="10%" class="center-align">
+          <img class="" style="max-width:100%;" src="{{ reg.prd_img.url }}" alt="">
+        </td>
+        <td class="center-align">{{ reg.prd_nombre }}</td>
+        <td class="center-align">{{ reg.catg_id }}</td>
+        <td class="center-align">$ {{ reg.prd_precio_compra }}</td>
+        <td class="">
+          <ul class="collapsible">
+            <li>
+              <div class="collapsible-header"><i class="material-icons">remove_red_eye</i>...</div>
+              <div class="collapsible-body">
+                <span>
+                  <pre>{{ reg.prd_descripcion }}</pre>
+                </span>
+              </div>
+            </li>
+          </ul>
+        </td>
+        <td class="center-align">
+          <a href="{% url 'productosedd' reg.prd_id %}" class="mn-ttp waves-effect waves-light btn green" data-position="top" data-delay="25" data-tooltip="Editar"><i class="material-icons">edit</i></a>
+          <a href="{% url 'productosdel' reg.prd_id %}" class="mn-ttp waves-effect waves-light btn red" data-position="top" data-delay="25" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="yellow lighten-3 center-align" >
+          <div class="">
+            <i class="material-icons">warning</i> No hay Productos.
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

@@ -1,0 +1,10 @@
+
+.color-fondo-login{
+  background-color: rgba(233, 30, 99, 0.53);
+}
+
+.centro-v-h{
+  /*margin-left: auto;
+  margin-right: auto;*/
+  align-items: center;
+}

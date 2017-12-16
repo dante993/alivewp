@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+<br>
+<a href="{% url 'categorias' %}" class="mn-ttp waves-effect waves-light btn" data-position="top" data-delay="25" data-tooltip="Regresar a las categorias activas"><i class="material-icons">insert_drive_file</i></a>
+<br><br>
+<div class="white">
+  <table class="highlight black-text">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for reg in registros %}
+      <tr>
+        <td>{{ reg.catg_id }}</td>
+        <td>{{ reg.catg_nombre }}</td>
+        <td>
+          <ul class="collapsible">
+            <li>
+              <div class="collapsible-header"><i class="material-icons">remove_red_eye</i>...</div>
+              <div class="collapsible-body">
+                <span>
+                  <pre>{{ reg.catg_descripcion }}</pre>
+                </span>
+              </div>
+            </li>
+          </ul>
+        </td>
+        <td class="center-align">
+          <a href="{% url 'categoriasres' reg.catg_id %}" class="mn-ttp waves-effect waves-light btn green" data-position="top" data-delay="25" data-tooltip="Restaurar"><i class="material-icons">restore_page</i></a>
+          <a href="{% url 'categoriasdelp' reg.catg_id %}" class="mn-ttp waves-effect waves-light btn red" data-position="top" data-delay="25" data-tooltip="Eliminar definitivamente"><i class="material-icons">delete_forever</i></a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4" class="yellow lighten-3 center-align" >
+          <div class="">
+            <i class="material-icons">warning</i>No hay categorias eliminadas.
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

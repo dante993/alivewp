@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="es">
+  {% load staticfiles %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>Alive</title>
+
+  <link type="image/x-icon" href="{% static 'img/alivelogo.jpg' %}" rel="shortcut icon"/>
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"/> -->
+  {% block js %}
+  <script src="{% static 'js/jquery.min.js' %}" ></script>
+  <script src="{% static 'js/materialize.min.js' %}" ></script>
+  <script src="{% static 'js/gallery.min.opt.js' %}" ></script>
+  {% endblock js %}
+
+  {% block css %}
+  <link rel="stylesheet" href="{% static 'css/gallery-materialize.min.opt.css' %}">
+  <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/ownstyle.css' %}">
+  <link rel="stylesheet" href="{% static 'iconfont/material-icons.css' %}">
+  {% endblock css %}
+
+</head>
+<body style="background: url({% static 'img/1.jpg' %}) no-repeat fixed center;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;">
+
+<div class="center-align valign-wrapper">
+  <div class="card color-fondo-login">
+    <form class="form-signin" method="post" action="">{% csrf_token %}
+      <div class="card-content white-text">
+        <span class="card-title center-align">Login</span>
+
+        <div class="input-field col s6">
+          <i class="material-icons prefix">featured_video</i>
+          {{ form.cedula }}
+          <label for="icon_prefix2">Cedula</label>
+        </div>
+        <div class="input-field col s6">
+          <i class="material-icons prefix">lock</i>
+          {{ form.password }}
+          <label for="icon_prefix2">Contraseña</label>
+        </div>
+      </div>
+      <div class="card-action">
+        <button type="submit" class="waves-effect waves-light btn pink">Ingresar</button>
+        <a href="{% url 'catalogo' %}" class="waves-effect waves-light btn green">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>

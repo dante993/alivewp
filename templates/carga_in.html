@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+<br>
+<div class="row valign-wrapper">
+  <a href="{% url 'productos' %}" class="mn-ttp waves-effect waves-light btn" data-position="top" data-delay="25" data-tooltip="Regresar a los productos activos"><i class="material-icons">insert_drive_file</i></a>
+</div>
+<div class="white">
+  <table class="highlight black-text">
+    <thead>
+      <tr>
+        <th class="center-align">Imagen</th>
+        <th class="center-align">Nombre</th>
+        <th class="center-align">Categoria</th>
+        <th class="center-align">Precio</th>
+        <th class="center-align">Descripcion</th>
+        <th class="center-align">Opciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for reg in registros %}
+      <tr>
+        <td width="10%" class="center-align">
+            <img class="" style="max-width:100%;" src="{{ reg.prd_img.url }}" alt="">
+        </td>
+        <td class="center-align">{{ reg.prd_nombre }}</td>
+        <td class="center-align">{{ reg.catg_id }}</td>
+        <td class="center-align">$ {{ reg.prd_precio_compra }}</td>
+        <td class="center-align">
+          <ul class="collapsible">
+            <li>
+              <div class="collapsible-header"><i class="material-icons">remove_red_eye</i>...</div>
+              <div class="collapsible-body">
+                <span>
+                  <pre>{{ reg.prd_descripcion }}</pre>
+                </span>
+              </div>
+            </li>
+          </ul>
+        </td>
+        <td class="center-align">
+          <a href="{% url 'productosres' reg.prd_id %}" class="mn-ttp waves-effect waves-light btn green" data-position="top" data-delay="25" data-tooltip="Restaurar"><i class="material-icons">restore_page</i></a>
+          <a href="{% url 'productosdelp' reg.prd_id %}" class="mn-ttp waves-effect waves-light btn red" data-position="top" data-delay="25" data-tooltip="Eliminar definitivamente"><i class="material-icons">delete_forever</i></a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="yellow lighten-3 center-align" >
+          <div class="">
+            <i class="material-icons">warning</i>No hay productos eliminados.
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}
