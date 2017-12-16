@@ -10,7 +10,6 @@
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"/> -->
   {% block js %}
   <script src="{% static 'js2/jquery-3.2.1.min.js' %}" ></script>
-  <script src="{% static 'js2/cards-extended.js' %}" ></script>
   <script src="{% static 'js2/chart.min.js' %}" ></script>
   <script src="{% static 'js2/chartist.min.js' %}" ></script>
   <script src="{% static 'js2/materialize.min.js' %}" ></script>
@@ -79,9 +78,21 @@ background-size: cover;">
 
 <script type="text/javascript">
 $(document).ready(function(){
-  $('.tap-target').tapTarget('open');
 // $('.tap-target').tapTarget('close');
+
+  var miCookie = readCookie( "aliveck" );
+  if(miCookie==1){
+    console.log("");
+  }else {
+    $('.tap-target').tapTarget('open');
+  }
+  document.cookie = "aliveck=1";
   });
+  function readCookie(name) {
+
+    return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + name.replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+
+  }
 
 
 </script>
