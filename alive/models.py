@@ -87,3 +87,13 @@ class Producto(models.Model):
     prd_estado = models.CharField(max_length = 8,choices=ESTADO_CHOICES, default='activo',verbose_name="Estado")
     def __str__(self):
         return self.prd_nombre
+
+class Promociones(models.Model):
+    prm_id = models.AutoField(primary_key=True)
+    prm_img = models.ImageField(upload_to="prm_img",blank=True,null=True)
+    prm_nombre = models.CharField(max_length = 50,verbose_name="Nombre",default='')
+    prm_descripcion = models.TextField(verbose_name="Descripción",null=True)
+
+class DetalleProm(models.Model):
+    prm_id =models.ForeignKey(Producto,verbose_name="Producto",on_delete=models.CASCADE)
+    prd_id=models.ForeignKey(Promociones,verbose_name="Promociones",on_delete=models.CASCADE)

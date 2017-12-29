@@ -25,7 +25,7 @@ SECRET_KEY = 'r)@lj8%k*v4w)i$(w(xl+8ai*)3^_spy+1q!&qb255#s9bs)^*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.101']
+ALLOWED_HOSTS = ['aliveexclusividades.pythonanywhere.com']
 
 AUTH_USER_MODEL = 'alive.User'
 from django.core.urlresolvers import reverse_lazy
@@ -82,12 +82,8 @@ WSGI_APPLICATION = 'alive_wp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'alivedb',
-        'USER':'postgres',
-        'PASSWORD':'12345678',
-        'HOST':'127.0.0.1',
-        'PORT':'5432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 

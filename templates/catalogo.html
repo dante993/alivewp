@@ -1,0 +1,84 @@
+{% extends "baseusr.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<div style="padding-left:5%;padding-right:5%;">
+  <div class="ui special cards">
+    {% for reg in registros %}
+    <div class="ui modal" id="pr{{reg.prd_id}}">
+      <i class="close icon"></i>
+      <div class="header">
+        {{ reg.prd_nombre }}
+      </div>
+      <div class="image content">
+        <div class="ui medium image">
+          <img src="{{ reg.prd_img.url }}">
+        </div>
+        <div class="description">
+          <div class="ui header">Precio: $ {{ reg.prd_precio_compra }}</div>
+          <pre>{{ reg.prd_descripcion }}</pre>
+          <p align="center">
+            Para adquirir este o cualquier producto comuniquese a:<br>
+          </p>
+          <p>
+            <img class="ui mini spaced image" src="{% static 'img/face.png' %}"> Facebook: <a href="https://www.facebook.com/AliveExclusividades/">AliveExclusividades</a><br>
+            <img class="ui mini spaced image" src="{% static 'img/insta.png' %}"> Instagram: <a href="https://www.instagram.com/alive_exclusividades/">alive_exclusividades</a><br>
+            <img class="ui mini spaced image" src="{% static 'img/ws.png' %}"> Whatsapp: <a>0996565355 - 0992890102</a>
+          </p>
+        </div>
+      </div>
+      <div class="actions">
+        <div class="ui positive right labeled icon button">
+          Entendido
+          <i class="checkmark icon"></i>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="blurring dimmable image dimervi">
+        <div class="ui dimmer">
+          <div class="content">
+            <div class="center">
+              <button onclick="vermodal('pr{{reg.prd_id}}')" class="ui inverted button">Ver descripción</button>
+            </div>
+          </div>
+        </div>
+        <div style="background: url({{ reg.prd_img.url }}) center;background-size:cover">
+          <img  src="{% static 'img/blanco.png' %}">
+        </div>
+
+      </div>
+      <div class="content">
+        <a class="header">{{ reg.prd_nombre }}</a>
+        <div class="meta">
+          <span class="date">Categoría: {{ reg.catg_id }}</span>
+        </div>
+      </div>
+      <div class="extra content">
+        <a>
+          <i class="money icon"></i>
+          $ {{ reg.prd_precio_compra }}
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+{% endblock content %}
+{% block jscript %}
+<script type="text/javascript">
+function vermodal(idpr){
+  $('#'+idpr)
+  .modal('show')
+;
+}
+$('.dimervi').dimmer({
+  on: 'hover'
+});
+</script>
+{% endblock jscript %}

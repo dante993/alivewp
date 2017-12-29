@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+<br>
+<form class="col" method="post">{% csrf_token %}
+  <div class="row valign-wrapper">
+    <a href="{% url 'promosadd' %}" class="mn-ttp waves-effect waves-light btn" data-position="top" data-delay="25" data-tooltip="Nueva promocion"><i class="material-icons">note_add</i></a>
+  </div>
+</form>
+<div class="white">
+  <table class="highlight black-text">
+    <thead>
+      <tr>
+        <th class="center-align">Nombre</th>
+        <th class="center-align">Descripcion</th>
+        <th class="center-align">Productos</th>
+        <th class="center-align">Opciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for reg in registros %}
+      <tr>
+        <td class="center-align">{{ reg.nombre }}</td>
+        <td class="">
+          <ul class="collapsible">
+            <li>
+              <div class="collapsible-header"><i class="material-icons">remove_red_eye</i>...</div>
+              <div class="collapsible-body">
+                <span>
+                  <pre>{{ reg.descripcion }}</pre>
+                </span>
+              </div>
+            </li>
+          </ul>
+        </td>
+        <td class="">
+          <ul class="collapsible">
+            <li>
+              <div class="collapsible-header"><i class="material-icons">remove_red_eye</i>...</div>
+              <div class="collapsible-body">
+                <span>
+                  <p>
+                    {% for regp in reg.productos %}
+                    {{regp.prm_id}}<br>
+                    {% endfor %}
+                  </p>
+                </span>
+              </div>
+            </li>
+          </ul>
+        </td>
+        <td class="center-align">
+          <a href="{% url 'promosdel' reg.id %}" class="mn-ttp waves-effect waves-light btn red" data-position="top" data-delay="25" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="yellow lighten-3 center-align" >
+          <div class="">
+            <i class="material-icons">warning</i> No hay promociones.
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

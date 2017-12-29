@@ -9,124 +9,108 @@
   <link type="image/x-icon" href="{% static 'img/alivelogo.jpg' %}" rel="shortcut icon"/>
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"/> -->
   {% block js %}
-  <script src="{% static 'js2/jquery-3.2.1.min.js' %}" ></script>
-  <script src="{% static 'js2/chart.min.js' %}" ></script>
-  <script src="{% static 'js2/chartist.min.js' %}" ></script>
-  <script src="{% static 'js2/materialize.min.js' %}" ></script>
-  <script src="{% static 'js2/perfect-scrollbar.min.js' %}" ></script>
-  <script src="{% static 'js2/plugins.js' %}" ></script>
-  <script src="{% static 'js2/prism.js' %}" ></script>
-  <script src="{% static 'js2/imagesloaded.pkgd.min.js' %}" ></script>
-  <script src="{% static 'js2/page-item.js' %}" ></script>
-  <script src="{% static 'js2/masonry.pkgd.min.js' %}" ></script>
+  <script src="{% static 'assets/jquery.min.js' %}" ></script>
+  <script src="{% static 'assets/semantic.min.js' %}" ></script>
+  <script src="{% static 'js/sly.min.js' %}" ></script>
+  <script src="{% static 'js/plugins.js' %}" ></script>
   {% endblock js %}
 
   {% block css %}
-  <link rel="stylesheet" href="{% static 'css2/materialize.css' %}">
-  <link rel="stylesheet" href="{% static 'css2/flag-icon.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css2/perfect-scrollbar.css' %}">
-  <link rel="stylesheet" href="{% static 'css2/prism.css' %}">
-  <link rel="stylesheet" href="{% static 'css2/style.css' %}">
-  <link rel="stylesheet" href="{% static 'iconfont/material-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/semantic.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/horizontal.css' %}">
   {% endblock css %}
 
 
 </head>
-<body style="background: url({% static 'img/12.jpg' %}) no-repeat fixed center;
--webkit-background-size: cover;
--moz-background-size: cover;
--o-background-size: cover;
-background-size: cover;">
+<body >
+<div style="background: url({% static 'img/mq6.jpg' %}) no-repeat fixed center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;">
+  <div class="ui main text container" >
+    <div class="row">
+      <a class=" col"><img style="max-width:50%;" src="{% static 'img/logo.png' %}"></a>
+      <h3 class="ui header col" style="color:#ffffff;">Tendencia, moda y estilo</h3>
 
-<main>
-  <nav class="hoverable purple accent-3" style="background: url({% static 'img/baner.png' %});
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;">
-    <div class="row valign-wrapper nav-wrapper">
-      <div class="col left" style="margin-top:2%;">
-        <a href="#"><img src="{% static 'img/logo.png' %}" style="max-width:50%;"> </a>
-      </div>
-      <div class="col center">
-        <h5>Categoría: {{ categ_act }}</h5>
+    </div>
 
+  </div>
+  <div class="ui borderless main menu" style="background-color:#f44336;">
+    <div class="ui text container">
+      <div href="#" class="header item">
+        Alive exclusividades
       </div>
-      <div class="col center">
-        <a id="categ" class='dropdown-button btn purple accent-1' href='#' data-activates='dropdown1'>categorías</a>
-        <ul id='dropdown1' class='dropdown-content'>
-          <li><a href="{% url 'catalogo' %}">Todos</a></li>
+      <a href="{% url 'inicio'%}" class="item">inicio</a>
+      <a href="{% url 'catalogo'%}" class="item">Productos</a>
+      {% if categ_act != 'ninguna' %}
+      <div class="ui right search floated dropdown item">
+        Categorías <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item" href="{% url 'catalogo'%}">Todos</a>
+          <div class="divider"></div>
           {% for regc in registrosc %}
-          <li><a href="{% url 'catalogof' regc.catg_id %}">{{regc.catg_nombre}}</a></li>
+            <a class="item" href="{% url 'catalogof' regc.catg_id %}">{{regc.catg_nombre}}</a>
           {% endfor %}
-        </ul>
-        <div class="tap-target" data-activates="categ">
-          <div class="tap-target-content">
-            <h5>Filtrar por categorías</h5>
-            <p>Si deseas encontrar algo mas específico puedes probar a elegir una categoría!</p>
-          </div>
         </div>
       </div>
+      {% endif %}
     </div>
-  </nav>
-
-
+  </div>
+</div>
+<div>
   {% block content %}
 
   {% endblock content %}
-</main>
-
+</div>
+<br>
+<div class="ui inverted vertical footer segment">
+  <div class="ui center aligned container">
+    <div class="ui stackable inverted divided grid">
+      <div class="four wide column">
+        <h4 class="ui inverted header">Redes sociales</h4>
+        <div class="ui inverted link list">
+          <a href="https://www.facebook.com/AliveExclusividades/" class="item">Facebook</a>
+          <a href="https://www.instagram.com/alive_exclusividades/" class="item">Instagram</a>
+          <a class="item">Whatsapp: 0996565355 - 0992890102</a>
+        </div>
+      </div>
+      <div class="eleven wide column">
+        <img src="{% static 'img/logo.png' %}" class="ui small centered image">
+        <p>Alive exclusividades - Tendencia, moda y estilo. Acompañandote a donde quiera que vayas.</p>
+      </div>
+    </div>
+    <div class="ui inverted section divider"></div>
+    <div class="ui horizontal inverted small divided link list">
+      <a class="item" href="mailto:e.j.moya.arias@gmail.com">Contactar con el desarrollador</a>
+      <a class="item">© 2017 Copyright EJMA</a>
+    </div>
+  </div>
+</div>
+  {% block jscript %}
+  {% endblock jscript %}
 <script type="text/javascript">
 $(document).ready(function(){
-// $('.tap-target').tapTarget('close');
-
-  var miCookie = readCookie( "aliveck" );
-  if(miCookie==1){
-    console.log("");
-  }else {
-    $('.tap-target').tapTarget('open');
-  }
-  document.cookie = "aliveck=1";
+  $('.ui.dropdown').dropdown();
+  // fix main menu to page on passing
+  $('.main.menu').visibility({
+    type: 'fixed'
   });
-  function readCookie(name) {
+  $('.overlay').visibility({
+    type: 'fixed',
+    offset: 80
+  });
 
-    return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + name.replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
-
-  }
+  // lazy load images
+  $('.image').visibility({
+    type: 'image',
+    transition: 'vertical flip in',
+    duration: 500
+  });
+});
 
 
 </script>
 </body>
-<footer class="page-footer purple accent-2" style="padding-left:0px;">
-  <div class="container">
-    <div class="row">
-      <div class="col l6 s12">
-        <a href="#"><img src="{% static 'img/logo.png' %}" style="max-width:35%;"> </a>
-        <p class="grey-text text-lighten-4">
-          CATÁLOGO ON-LINE <br>
-          MAQUILLAJE️ [ESSENCE⚪BEAUTY CREATIONS⚫MORPHE MAC⚫URBAN DECAY] <br>
-          PERFUMES⚫ACCESORIOS <br>
-          ASESORAMOS TUS COMPRAS <br>
-          ENTREGAMOS A DOMICILIO GRATIS (MACHALA - PASAJE - EL GUABO) <br>
-          EN TU CUMPLEAÑOS OBTIENES EL 20% DESCUENTO EN TODOS NUESTROS PRODUCTOS MAS REGALO
 
-        </p>
-      </div>
-      <div class="col l4 offset-l2 s12">
-        <h5 class="white-text">Redes <i class="material-icons">share</i></h5>
-        <ul>
-          <li><a class="grey-text text-lighten-3 valign-wrapper" href="https://www.facebook.com/AliveExclusividades/"><img src="{% static 'img/face.png' %}" style="max-width:5%;">&nbsp;&nbsp;AliveExclusividades</a></li><br>
-          <li><a class="grey-text text-lighten-3 valign-wrapper"><img src="{% static 'img/insta.png' %}" style="max-width:5%;">&nbsp; alive_exclusividades</a></li><br>
-          <li><a class="grey-text text-lighten-3 valign-wrapper"><img src="{% static 'img/Whatsapp.png' %}" style="max-width:5%;">&nbsp; 0996565355 - 0992890102</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="footer-copyright">
-    <div class="container">
-    © 2017 Copyright <a class="grey-text text-lighten-4" href="mailto:e.j.moya.arias@gmail.com">EJMA</a>
-    <a class="grey-text text-lighten-4 right" href="mailto:e.j.moya.arias@gmail.com">Contactar con el desarrollador</a>
-    </div>
-  </div>
-</footer>
 </html>

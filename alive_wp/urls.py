@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^logout/$', logoutView, name='logout'),
     # url(r'^inicio/$', inicioView, name='inicio_view'),cargaCCreate
 
+    url(r'^inicio/$', usriniView, name='inicio'),
     url(r'^catalogo/$', usrView, name='catalogo'),
     url(r'^catalogo/filtro/(?P<pk>.*)/$', usrfView, name='catalogof'),
 
@@ -45,4 +46,9 @@ urlpatterns = [
     url(r'^carga_productos/delete/(?P<pk>.*)/$', cargaDelete, name='productosdel'),
     url(r'^carga_productos/deletep/(?P<pk>.*)/$', cargaDeleteP, name='productosdelp'),
     url(r'^carga_productos/restore/(?P<pk>.*)/$', cargaRestore, name='productosres'),
+
+    url(r'^promociones/$', promoView, name='promos'),
+    url(r'^promociones/nuevo/$', promoCreate, name='promosadd'),
+    url(r'^promociones/delete/(?P<pk>.*)/$', promoDeleteP, name='promosdel'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

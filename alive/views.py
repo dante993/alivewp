@@ -9,6 +9,14 @@ from alive.forms import *
 
 # @login_required(login_url='/')
 # Create your views here.
+class promocionOB():
+    def __init__(self,nomb,descr,prdto,cod,imrl):
+        self.id = cod
+        self.url = imrl
+        self.nombre = nomb
+        self.descripcion = descr
+        self.productos = prdto
+
 def logoutView(request):
     logout(request)
     return redirect("/login/")
@@ -41,7 +49,20 @@ def usrView(request):
         pg_listado = paginator_listado.page(1)
     except EmptyPage:
         pg_listado = paginator_listado.page(paginator_listado.num_pages)
-    return render_to_response('index.html',{'registros':pg_listado,'registrosc':obj2,'categ_act':'Todos'})
+    return render_to_response('catalogo.html',{'registros':pg_listado,'registrosc':obj2,'categ_act':'Todos'})
+
+def usriniView(request):
+    listado = []
+
+    obj = Promociones.objects.order_by("prm_nombre")
+    for i in obj:
+        productosl = []
+        dettemp = DetalleProm.objects.filter(prd_id=i)
+        for j in dettemp:
+            productosl.append(get_object_or_404(Producto, pk=j.prm_id_id))
+        obtemp = promocionOB(i.prm_nombre,i.prm_descripcion,productosl,i.prm_id,i.prm_img.url)
+        listado.append(obtemp)
+    return render_to_response('index.html',{'categ_act':'ninguna','listado':listado})
 
 def usrfView(request,pk):
     objcat = get_object_or_404(Categorias, pk=pk)
@@ -55,7 +76,7 @@ def usrfView(request,pk):
         pg_listado = paginator_listado.page(1)
     except EmptyPage:
         pg_listado = paginator_listado.page(paginator_listado.num_pages)
-    return render_to_response('index.html',{'registros':pg_listado,'registrosc':obj2,'categ_act':objcat.catg_nombre})
+    return render_to_response('catalogo.html',{'registros':pg_listado,'registrosc':obj2,'categ_act':objcat.catg_nombre})
 
 # -----------------------------------------------------------------------------------------------------------------------
 @login_required(login_url='/')
@@ -181,3 +202,41 @@ def cargaCRestore(request,pk):
     obj.catg_estado='activo'
     obj.save()
     return redirect("categoriasin")
+
+# ------------------------------------------- promociones ---------------------------------------
+@login_required(login_url='/')
+def promoView(request):
+    listado =[]
+    obj = Promociones.objects.order_by("prm_nombre")
+    for i in obj:
+        dettemp = DetalleProm.objects.filter(prd_id=i)
+        obtemp = promocionOB(i.prm_nombre,i.prm_descripcion,dettemp,i.prm_id,i.prm_img.url)
+        listado.append(obtemp)
+
+    return render(request,'promo.html',{'registros':listado,'ubicacion':'Listado de promociones'})
+
+@login_required(login_url='/')
+def promoCreate(request, template_name='promo_add.html'):
+    obj = Producto.objects.order_by("prd_nombre").filter(prd_estado='activo')
+    form = promosForm(request.POST or None,request.FILES or None)
+    formprm = ''
+    if request.method=='POST':
+        if form.is_valid():
+            formprm = form.save()
+        try:
+            prdss= request.POST.get("productos").split(",")
+            for i in prdss:
+                objp = get_object_or_404(Producto, prd_id=i)
+                objpm = get_object_or_404(Promociones, pk=formprm.prm_id)
+                detll = DetalleProm(prm_id=objp,prd_id=objpm)
+                detll.save()
+        except:
+            print("*******sin agregar productos a esta promocion*******")
+        return redirect("promos")
+    return render(request,template_name,{'registros':obj,'form':form,"ubicacion":'Nueva promocion'})
+
+@login_required(login_url='/')
+def promoDeleteP(request,pk):
+    obj = get_object_or_404(Promociones, pk=pk)
+    obj.delete()
+    return redirect("promos")

@@ -1,54 +1,206 @@
 {% extends "baseusr.html" %}
 {% load staticfiles %}
 {% block content %}
-<section id="content">
-  <div class="container">
-    <div class="section">
-      <div class="row" id="item-posts">
-        <div class="item-sizer"></div>
-        {% for reg in registros %}
 
-        <div class="item product">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <a class="btn-floating btn-large btn-price waves-effect waves-light teal accent-4">$ {{ reg.prd_precio_compra }}</a>
-              <a class="activator">
-                <img src="{{ reg.prd_img.url }}" alt="item-img">
-              </a>
-            </div>
-            <ul class="card-action-buttons">
-              <li>
-                <a class="btn-floating waves-effect waves-light blue accent-2 tooltipped" data-position="top" data-delay="25" data-tooltip="Informacion del producto">
-                  <i class="material-icons activator">info_outline</i>
-                </a>
-              </li>
-            </ul>
-            <div class="card-content">
-              <div class="row">
-                <div class="col s12">
-                  <p class="card-title grey-text text-darken-4"><a class="grey-text text-darken-4">{{ reg.prd_nombre }}</a>
-                  </p>
+<!-- <div class="ui center aligned container" style="background: url({% static 'img/mqm.jpg' %}) center;">
+<br><br><br><br><br><br>
+<p style="color:rgb(255, 255, 255);">
+  CATÁLOGO ON-LINE <br>
+         MAQUILLAJE️ [ESSENCE - BEAUTY CREATIONS - MORPHE MAC - URBAN DECAY] <br>
+         PERFUMES - ACCESORIOS <br>
+
+</p>
+<div class="ui buttons">
+  <button class="ui inverted red button"><i class="arrow left icon"></i></button>
+  <button class="ui inverted red button">Red</button>
+  <button class="ui inverted red button"><i class="arrow right icon"></i></button>
+</div>
+<br><br><br><br><br><br><br><br>
+</div> -->
+<br>
+
+
+<div class="ui divider"></div>
+<div class="ui container">
+  <h1>Estas son las promociones que tenemos para ti:</h1>
+  {% for prms in listado %}
+  <div class="ui green piled segment">
+    <h3>{{prms.nombre}}</h3>
+    <img src="{{ prms.url }}" alt="" class="ui fluid rounded image"><br>
+    <p>{{prms.descripcion}}</p>
+    <div class="ui divider"></div>
+    <div class="ui special cards">
+      <div class="frame" id="slyps{{prms.id}}">
+      	<ul class="clearfix">
+          {% for prmsp in prms.productos %}
+          <li>
+            <div class="ui card">
+              <div class="blurring dimmable image">
+                <div class="ui dimmer">
+                  <div class="content">
+                    <div class="center">
+                      <button onclick="vermod()" class="ui inverted button">info</button>
+                    </div>
+                  </div>
+                </div>
+                <div style="background: url({{ prmsp.prd_img.url }}) center;background-size:cover">
+                  <img  src="{% static 'img/blanco.png' %}">
+                </div>
+
+              </div>
+              <div class="content">
+                <a class="header">{{prmsp.prd_nombre}}</a>
+                <div class="meta">
+                  <span class="date">Categoría: {{ prmsp.catg_id }}</span>
                 </div>
               </div>
+              <div class="extra content">
+                <a>
+                  <i class="money icon"></i>
+                  $ {{ prmsp.prd_precio_compra }}
+                </a>
+              </div>
             </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">
-                <i class="material-icons right">close</i> {{ reg.prd_nombre }}</span>
-                <span class="new badge blue left" data-badge-caption="">Precio: $ {{ reg.prd_precio_compra }}</span>
-                <span class="new badge red left" data-badge-caption="">Categoria: {{ reg.catg_id }}</span>
-                <br>
-              <pre>{{ reg.prd_descripcion }}</pre>
-              <span>Si deseas este producto comunicate a:</span><br>
-              <span><a class="valign-wrapper" href="https://www.facebook.com/AliveExclusividades/"><img src="{% static 'img/face.png' %}" style="max-width:5%;">&nbsp;AliveExclusividades</a></span>
-              <span><a class="valign-wrapper"><img src="{% static 'img/insta.png' %}" style="max-width:5%;">&nbsp; alive_exclusividades</a></li></span>
-              <span><a class="valign-wrapper"><img src="{% static 'img/Whatsapp.png' %}" style="max-width:5%;">&nbsp; 0996565355 - 0992890102</a></span>
+          </li>
+          {% empty %}
+          <div class="ui icon info message">
+            <i class="smile icon"></i>
+            <div class="content">
+              <div class="header">
+                Todos los productos disponibles aplican esta promoción
+              </div>
             </div>
           </div>
-        </div>
-        {% endfor %}
+          {% endfor %}
+        </ul>
       </div>
     </div>
   </div>
-</section>
+  {% empty %}
+  <div class="ui icon info message">
+    <i class="hand peace icon"></i>
+    <div class="content">
+      <div class="header">
+        No hay promociones disponibles por el momento.
+      </div>
+      <p>Pero descuida dentro de poco tendremos nuevas sorpresas para ti!</p>
+    </div>
+  </div>
+  {% endfor %}
+
+</div>
+<a href="#"></a>
+<div id="info" class="ui mini modal">
+  <div class="header">Información de contacto</div>
+  <div class="content">
+    <h5 class="ui center aligned">Para adquirir cualquier producto comuniquese a:</h5>
+    <p>
+      <img class="ui mini spaced image" src="{% static 'img/face.png' %}"> Facebook: <a href="https://www.facebook.com/AliveExclusividades/">AliveExclusividades</a><br>
+      <img class="ui mini spaced image" src="{% static 'img/insta.png' %}"> Instagram: <a href="https://www.instagram.com/alive_exclusividades/">alive_exclusividades</a><br>
+      <img class="ui mini spaced image" src="{% static 'img/ws.png' %}"> Whatsapp: <a>0996565355 - 0992890102</a>
+    </p>
+  </div>
+  <div class="actions">
+    <div class="ui positive right labeled icon button">
+      Entendido
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}
+{% block jscript %}
+<script type="text/javascript">
+
+jQuery(function($){
+	'use strict';
+
+	// -------------------------------------------------------------
+	//   Basic Navigation
+	// -------------------------------------------------------------
+  {% for prms in listado %}
+  (function () {
+		var $frame  = $('#slyps{{prms.id}}');
+		var $slidee = $frame.children('ul').eq(0);
+		var $wrap   = $frame.parent();
+
+		// Call Sly on frame
+		$frame.sly({
+			horizontal: 1,
+			itemNav: 'basic',
+			smart: 1,
+			activateOn: 'click',
+			mouseDragging: 1,
+			touchDragging: 1,
+			releaseSwing: 1,
+			startAt: 3,
+			scrollBar: $wrap.find('.scrollbar'),
+			scrollBy: 1,
+			pagesBar: $wrap.find('.pages'),
+			activatePageOn: 'click',
+			speed: 300,
+			elasticBounds: 1,
+			easing: 'easeOutExpo',
+			dragHandle: 1,
+			dynamicHandle: 1,
+			clickBar: 1,
+
+			// Buttons
+			forward: $wrap.find('.forward'),
+			backward: $wrap.find('.backward'),
+			prev: $wrap.find('.prev'),
+			next: $wrap.find('.next'),
+			prevPage: $wrap.find('.prevPage'),
+			nextPage: $wrap.find('.nextPage')
+		});
+
+		// To Start button
+		$wrap.find('.toStart').on('click', function () {
+			var item = $(this).data('item');
+			// Animate a particular item to the start of the frame.
+			// If no item is provided, the whole content will be animated.
+			$frame.sly('toStart', item);
+		});
+
+		// To Center button
+		$wrap.find('.toCenter').on('click', function () {
+			var item = $(this).data('item');
+			// Animate a particular item to the center of the frame.
+			// If no item is provided, the whole content will be animated.
+			$frame.sly('toCenter', item);
+		});
+
+		// To End button
+		$wrap.find('.toEnd').on('click', function () {
+			var item = $(this).data('item');
+			// Animate a particular item to the end of the frame.
+			// If no item is provided, the whole content will be animated.
+			$frame.sly('toEnd', item);
+		});
+
+		// Add item
+		$wrap.find('.add').on('click', function () {
+			$frame.sly('add', '<li>' + $slidee.children().length + '</li>');
+		});
+
+		// Remove item
+		$wrap.find('.remove').on('click', function () {
+			$frame.sly('remove', -1);
+		});
+	}());
+  {% endfor %}
+
+});
+
+
+function vermod(){
+  $('#info')
+  .modal('show')
+;
+}
+
+$('.special.cards .image').dimmer({
+  on: 'hover'
+});
+</script>
+{% endblock jscript %}

@@ -14,7 +14,7 @@
   {% endblock js %}
 
   {% block css %}
-  <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/materialize.css' %}">
   <link rel="stylesheet" href="{% static 'css/ownstyle.css' %}">
   <link rel="stylesheet" href="{% static 'iconfont/material-icons.css' %}">
   {% endblock css %}
@@ -38,6 +38,7 @@ background-size: cover;">
               <ul id="nav-mobile" class="left hide-on-med-and-down">
                 <li><a href="{% url 'categorias' %}">Categorias</a></li>
                 <li><a href="{% url 'productos' %}">Productos</a></li>
+                <li><a href="{% url 'promos' %}">Promociones</a></li>
                 <li><a href="{% url 'logout' %}">Salir</a></li>
               </ul>
             </div>

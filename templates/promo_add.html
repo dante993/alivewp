@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block content %}
+<br>
+<form class="" method="post" ENCTYPE="multipart/form-data">{% csrf_token %}
+  <div class="row">
+    <div class="white card-content">
+      <div class="row">
+        <div class="input-field">
+          {{form.prm_nombre}}
+          {{form.prm_nombre.label_tag}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field file-field">
+          <div class="btn">
+            <span>Seleccione una imagen para esta promocion</span>
+            {{form.prm_img}}
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate black-text" type="text">
+            <blockquote>
+                {{ form.prd_img.errors }}
+            </blockquote>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field ">
+          {{form.prm_descripcion}}
+          {{form.prm_descripcion.label_tag}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field file-field">
+          <a class="btn waves-effect waves-light modal-trigger white-text" href="#modal1">Seleccionar productos</a>
+          <div class="file-path-wrapper">
+            <input class="file-path black-text" id="prods" name="prods" type="text" readonly>
+            <input class="file-path hide" id="productos" name="productos" type="text">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field center-align">
+          <button class="waves-effect waves-light btn green" type="submit">Guardar</button>
+          <a class="waves-effect waves-light btn red" href="{% url 'promos' %}">Cancelar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content black-text">
+      <h4>Seleccione los productos que apliquen en esta promocion</h4>
+      <br>
+      <div class="row">
+        {% for reg in registros%}
+        <div class="col s12 m5">
+          <div class="card-panel white">
+            <p>
+              <div style="background: url({{ reg.prd_img.url }}) center;background-size:cover">
+                <img  src="{% static 'img/blanco.png' %}" height="200">
+              </div>
+              <br>
+              <input type="checkbox" id="{{reg.prd_id}}" />
+              <label for="{{reg.prd_id}}">{{reg.prd_nombre}}</label>
+            </p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a onclick="verr()" class="modal-action modal-close waves-effect waves-green btn-flat green">terminado</a>
+    </div>
+  </div>
+
+</form>
+<script type="text/javascript">
+function verr(){
+  var valorpn=[];
+  var valorpi=[];
+  // alert($('#productos').val());
+  {% for reg in registros%}
+  if( $('#{{reg.prd_id}}').prop('checked') ) {
+      valorpn.push("{{reg.prd_nombre}}");
+      valorpi.push("{{reg.prd_id}}");
+  }
+  {% endfor %}
+  $('#prods').val(valorpn);
+  $('#productos').val(valorpi);
+
+}
+
+$(document).ready(function(){
+  // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+  $('.modal').modal();
+});
+</script>
+{% endblock content %}
