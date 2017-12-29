@@ -83,7 +83,11 @@ WSGI_APPLICATION = 'alive_wp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
+<<<<<<< HEAD
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+=======
+         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+>>>>>>> e92c26390c1ec30c1ccdc15b36687e15b01c12f2
     }
 }
 
